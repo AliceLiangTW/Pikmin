@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>線上測驗</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>公司業務測驗</h1>
+
+<form id="quiz">
+
+  <div class="question">
+    <p>第一題：本公司業務內容</p>
+    <label><input type="radio" name="q1" value="A"> 衝四星巨</label><br>
+    <label><input type="radio" name="q1" value="B"> 美片</label><br>
+    <label><input type="radio" name="q1" value="C"> 卡菇</label><br>
+    <label><input type="radio" name="q1" value="D"> 跨月大元素</label><br>
+    <label><input type="radio" name="q1" value="E"> 以上皆是</label>
+  </div>
+
+  <div class="question">
+    <p>第二題：下列何者進菇速度最快</p>
+    <label><input type="radio" name="q2" value="A"> 草</label><br>
+    <label><input type="radio" name="q2" value="B"> 毛</label><br>
+    <label><input type="radio" name="q2" value="C"> KU</label><br>
+    <label><input type="radio" name="q2" value="D"> 老公</label>
+  </div>
+
+  <div class="question">
+    <p>第三題：勞闆揪人進菇台詞</p>
+    <label><input type="radio" name="q3" value="A"> 來來大飯店</label><br>
+    <label><input type="radio" name="q3" value="B"> 兄弟大飯店</label><br>
+    <label><input type="radio" name="q3" value="C"> 晶華酒店</label><br>
+    <label><input type="radio" name="q3" value="D"> 福華飯店</label>
+  </div>
+
+  <button type="button" onclick="submitQuiz()">交卷</button>
+</form>
+
+<h2 id="result"></h2>
+
+<script src="script.js"></script>
+</body>
+</html>
