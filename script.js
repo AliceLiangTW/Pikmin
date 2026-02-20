@@ -1,18 +1,12 @@
-// ✅ 確保 DOM 載入後才執行
-document.addEventListener("DOMContentLoaded", () => {
+// ✅ 確認 JS 有載入
+alert("JS 已成功載入");
 
+// 題庫（先 1 題）
 const quizData = [
   {
-    type:"choice",
-    question:"兵貴神速，請問下列哪一位進菇速度最快？",
-    options:["草","毛","KU","老公"],
-    answer:"草"
-  },
-  {
-    type:"choice",
-    question:"勞闆慈悲為懷，請問揪野女人進菇的台詞是？",
-    options:["兄弟大飯店","來來大飯店","晶華酒店","福華飯店"],
-    answer:"來來大飯店"
+    question: "🎉 公司尾牙辦在什麼時候？",
+    options: ["除夕", "初一", "初五", "元宵"],
+    answer: "初五"
   }
 ];
 
@@ -20,39 +14,39 @@ let current = 0;
 
 const qEl = document.getElementById("question");
 const cEl = document.getElementById("content");
+const pEl = document.getElementById("progress");
 const btn = document.getElementById("nextBtn");
+const nav = document.getElementById("nav");
 
+// 題號
+function createNav(){
+  nav.innerHTML = "";
+  quizData.forEach((_, i) => {
+    const d = document.createElement("div");
+    d.className = "dot" + (i === 0 ? " active" : "");
+    d.innerText = i + 1;
+    nav.appendChild(d);
+  });
+}
+
+// 載入題目
 function loadQuestion(){
   const q = quizData[current];
+  pEl.innerText = `第 1 題 / 共 1 題`;
   qEl.innerText = q.question;
   cEl.innerHTML = "";
 
-  q.options.forEach(opt=>{
+  q.options.forEach(opt => {
     const div = document.createElement("div");
     div.className = "option";
     div.innerText = opt;
-    div.onclick = ()=>{
+    div.onclick = () => {
       document.querySelectorAll(".option").forEach(o=>o.classList.remove("active"));
       div.classList.add("active");
-      btn.disabled = false;
     };
     cEl.appendChild(div);
   });
-
-  btn.disabled = true;
 }
 
-btn.onclick = ()=>{
-  current++;
-  if(current < quizData.length){
-    loadQuestion();
-  }else{
-    qEl.innerText = "完成 🎉";
-    cEl.innerHTML = "";
-    btn.style.display = "none";
-  }
-};
-
+createNav();
 loadQuestion();
-
-});
