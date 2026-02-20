@@ -1,18 +1,260 @@
+/* 全域設定 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f9f0ff, #e4f5ff);
+}
+
+/* 外層 app */
+.app {
+  width: 100%;
+  padding: 20px;
+}
+
+/* 卡片 */
+.card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px 22px 26px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 上方導航圓點 */
+.nav {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #f0f1f5;
+  color: #777;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dot:hover {
+  transform: scale(1.1);
+}
+
+.dot.active {
+  background: #ffb84d;
+  color: #4a2a00;
+  font-weight: 600;
+}
+
+.dot.answered {
+  background: #c5f0c5;
+  color: #1b5e20;
+}
+
+/* 進度文字 */
+.progress {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* 皮克敏圖片 */
+.pikmin {
+  width: 70px;
+  height: auto;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  opacity: 0.9;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .pikmin {
+  transform: scale(1.05) rotate(5deg);
+}
+
+/* 題目文字 */
+h2 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  padding-right: 80px;
+}
+
+/* 內容區塊 (選項 / 拖曳 / 配對) */
+#content > * {
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 單選題選項 */
+.option {
+  background: #f6f7fb;
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.18s ease;
+  font-size: 15px;
+}
+
+.option:hover {
+  background: #edf0ff;
+  transform: translateY(-1px);
+}
+
+.option.active {
+  border-color: #ffb84d;
+  background: #fff5e2;
+}
+
+/* 排序拖曳題 */
 .drag {
-  background:#e2e6e0;
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:10px;
-  cursor:move;
+  background: #e2e6e0;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  cursor: move;
+  transition: all 0.2s ease;
 }
 
+.drag:hover {
+  transform: scale(1.02);
+}
+
+/* 配對題 */
 .match-row {
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
+.match-row span {
+  font-size: 15px;
+}
+
+/* 下拉選單 */
 select {
-  border-radius:8px;
-  padding:6px;
+  border-radius: 8px;
+  padding: 6px 10px;
+  border: 1px solid #d0d5dd;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+select:hover {
+  transform: scale(1.02);
+}
+
+/* 下一題 / 完成按鈕 */
+#nextBtn {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  background: #ffb84d;
+  color: #4a2a00;
+  font-size: 16px;
+  padding: 12px 0;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(255, 184, 77, 0.4);
+  transition: all 0.2s ease;
+}
+
+#nextBtn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 24px rgba(255, 184, 77, 0.5);
+}
+
+#nextBtn:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+#nextBtn:disabled {
+  background: #e0e0e0;
+  color: #999;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* 結果頁 */
+.final {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 10px 0 20px;
+  color: #ff8a00;
+  text-align: center;
+}
+
+.card > p {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #555;
+}
+
+.card > button {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  background: #4caf50;
+  color: #fff;
+  font-size: 15px;
+  padding: 10px 0;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+  transition: all 0.2s ease;
+}
+
+.card > button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 24px rgba(76, 175, 80, 0.5);
+}
+
+/* RWD */
+@media (max-width: 600px) {
+  .card {
+    padding: 20px 16px 22px;
+  }
+  h2 {
+    font-size: 17px;
+    padding-right: 70px;
+  }
+  .pikmin {
+    width: 60px;
+  }
 }
