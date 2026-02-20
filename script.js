@@ -1,4 +1,3 @@
-/* ========= 題庫 ========= */
 const quizData = [
 
   { type:"multi",
