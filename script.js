@@ -1,4 +1,4 @@
-// 第一題的選項固定「以上皆有經營」放在最後
+// ==== 題目資料 ====
 const quizData = [
   { type:"choice",
     question:"本公司經營業務相當多元，請問下列何者不是經營項目？",
@@ -39,10 +39,11 @@ const quizData = [
   }
 ];
 
-// 狀態與 DOM 快取（不變）
+// ==== 狀態 ====
 let current = 0;
 let userAnswers = new Array(quizData.length).fill(null);
 
+// ==== DOM 快取 ====
 const qEl  = document.getElementById("question");
 const cEl  = document.getElementById("content");
 const pEl  = document.getElementById("progress");
@@ -50,13 +51,14 @@ const btn  = document.getElementById("nextBtn");
 const nav  = document.getElementById("nav");
 const card = document.querySelector(".card");
 
-// 工具函式
+// ==== 工具函式 ====
 function shuffle(array) {
+  // 產生新的陣列，避免原資料被改動
   const a = [...array];
   return a.sort(() => Math.random() - 0.5);
 }
 
-// 導覽圓點（不變）
+// ==== 導覽圓點 ====
 function createNav() {
   nav.innerHTML = "";
   quizData.forEach((_, i) => {
@@ -80,7 +82,7 @@ function updateNav() {
   });
 }
 
-// 載入題目
+// ==== 題目載入 ====
 function loadQuestion() {
   const q = quizData[current];
   qEl.innerText = q.question;
@@ -96,20 +98,9 @@ function loadQuestion() {
   updateNav();
 }
 
-// 單選題（第一題不隨機）
+// ==== 題型：單選 ====
 function renderChoice(q) {
-  let options = [...q.options];
-  
-  // 第一題固定「以上皆有經營」放最後
-  if (current === 0) {
-    options = q.options.slice(0, -1);
-    const last = q.options[q.options.length - 1];
-    options.sort(() => Math.random() - 0.5);
-    options.push(last);
-  } else {
-    options = shuffle(options);
-  }
-
+  const options = shuffle(q.options);
   options.forEach(opt => {
     const div = document.createElement("div");
     div.className = "option";
@@ -125,6 +116,7 @@ function renderChoice(q) {
     cEl.appendChild(div);
   });
 
+  // 若之前有作答，恢復選取
   const prev = userAnswers[current];
   if (prev !== null) {
     [...cEl.children].forEach(child => {
@@ -136,82 +128,56 @@ function renderChoice(q) {
   }
 }
 
-// 排序題（修復拖曳 bug）
+// ==== 題型：排序拖曳 ====
 function renderSort(q) {
   const items = shuffle(q.items);
-  
   items.forEach(text => {
     const div = document.createElement("div");
-    div.className = "drag-item";
+    div.className = "drag";
     div.draggable = true;
     div.innerText = text;
-    
-    // 拖曳事件
+
     div.ondragstart = e => {
       e.dataTransfer.setData("text/plain", text);
-      div.classList.add("dragging");
     };
-    
-    div.ondragend = () => {
-      div.classList.remove("dragging");
-    };
-    
-    div.ondragover = e => {
-      e.preventDefault();
-    };
-    
+    div.ondragover = e => e.preventDefault();
     div.ondrop = e => {
       e.preventDefault();
       const from = e.dataTransfer.getData("text/plain");
       const fromEl = [...cEl.children].find(x => x.innerText === from);
       if (fromEl && fromEl !== div) {
-        const rect = div.getBoundingClientRect();
-        const midpoint = rect.top + rect.height / 2;
-        if (e.clientY < midpoint) {
-          cEl.insertBefore(fromEl, div);
-        } else {
-          cEl.insertBefore(fromEl, div.nextSibling);
-        }
+        cEl.insertBefore(fromEl, div);
         saveSort();
       }
     };
-    
+
     cEl.appendChild(div);
   });
 
-  // 恢復之前作答
+  // 若之前有作答，依照記錄的順序呈現
   const prev = userAnswers[current];
   if (Array.isArray(prev)) {
     cEl.innerHTML = "";
     prev.forEach(text => {
       const div = document.createElement("div");
-      div.className = "drag-item";
+      div.className = "drag";
       div.draggable = true;
       div.innerText = text;
-      
-      // 重新綁定拖曳事件
+
       div.ondragstart = e => {
         e.dataTransfer.setData("text/plain", text);
-        div.classList.add("dragging");
       };
-      div.ondragend = () => div.classList.remove("dragging");
       div.ondragover = e => e.preventDefault();
       div.ondrop = e => {
         e.preventDefault();
         const from = e.dataTransfer.getData("text/plain");
         const fromEl = [...cEl.children].find(x => x.innerText === from);
         if (fromEl && fromEl !== div) {
-          const rect = div.getBoundingClientRect();
-          const midpoint = rect.top + rect.height / 2;
-          if (e.clientY < midpoint) {
-            cEl.insertBefore(fromEl, div);
-          } else {
-            cEl.insertBefore(fromEl, div.nextSibling);
-          }
+          cEl.insertBefore(fromEl, div);
           saveSort();
         }
       };
-      
+
       cEl.appendChild(div);
     });
   }
@@ -225,44 +191,45 @@ function saveSort() {
   btn.disabled = false;
 }
 
-// 配對題（新版 App 風格）
+// ==== 題型：配對 ====
 function renderMatch(q) {
   const keys = Object.keys(q.pairs);
   const values = shuffle(Object.values(q.pairs));
   const prev = userAnswers[current] || {};
 
-  keys.forEach((k, index) => {
-    const pair = document.createElement("div");
-    pair.className = "match-pair";
+  keys.forEach(k => {
+    const row = document.createElement("div");
+    row.className = "match-row";
 
-    const label = document.createElement("div");
-    label.className = "match-label";
+    const label = document.createElement("span");
     label.innerText = k;
 
     const select = document.createElement("select");
-    select.className = "match-select";
     select.innerHTML =
-      `<option value="">請選擇</option>` +
-      values.map(v => `<option value="${v}">${v}</option>`).join("");
+      `<option value="">選擇</option>` +
+      values.map(v => `<option>${v}</option>`).join("");
 
+    // 若之前有作答，設定選取值
     if (prev[k]) {
       select.value = prev[k];
+      btn.disabled = false;
     }
 
     select.onchange = () => {
       if (!userAnswers[current]) userAnswers[current] = {};
       userAnswers[current][k] = select.value;
-      
+
+      // 檢查是否所有 key 都已選擇
       const allFilled = keys.every(key => userAnswers[current][key]);
       btn.disabled = !allFilled;
     };
 
-    pair.append(label, select);
-    cEl.appendChild(pair);
+    row.append(label, select);
+    cEl.appendChild(row);
   });
 }
 
-// 其他函式保持不變...
+// ==== 下一題 / 結果 ====
 function nextQuestion() {
   if (current < quizData.length - 1) {
     current++;
@@ -274,12 +241,21 @@ function nextQuestion() {
 
 function showResult() {
   let correct = 0;
+
   quizData.forEach((q, i) => {
     const ans = userAnswers[i];
-    if (q.type === "choice" && ans === q.answer) correct++;
-    if (q.type === "sort" && 
-        Array.isArray(ans) &&
-        JSON.stringify(ans) === JSON.stringify(q.answer)) correct++;
+
+    if (q.type === "choice") {
+      if (ans === q.answer) correct++;
+    }
+
+    if (q.type === "sort") {
+      if (Array.isArray(ans) &&
+          JSON.stringify(ans) === JSON.stringify(q.answer)) {
+        correct++;
+      }
+    }
+
     if (q.type === "match") {
       let ok = true;
       for (const k in q.pairs) {
@@ -295,14 +271,13 @@ function showResult() {
   const score = Math.round((correct / quizData.length) * 100);
 
   card.innerHTML = `
-    <h1 class="title">大年初五辦尾牙 🎉</h1>
-    <h2>測驗完成！</h2>
+    <h2>測驗完成 🎉</h2>
     <div class="final">${score} 分</div>
     <p>共 ${quizData.length} 題，答對 ${correct} 題</p>
     <button onclick="location.reload()">重新作答</button>
   `;
 }
 
-// 初始化
+// ==== 初始化 ====
 createNav();
 loadQuestion();
