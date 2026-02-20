@@ -19,10 +19,12 @@ const quizData = [
     options:["予秧","多莉","估董","勞闆"],
     answer:"予秧"
   },
-  { type:"sort",
-    question:"請將本公司成員的現居住地，由南到北排列：",
-    items:["捏","ㄑ","酥","瓜"],
-    answer:["捏","ㄑ","酥","瓜"]
+  { <div class="sort-container" id="sortQ5">
+  <div class="sort-item">捏</div>
+  <div class="sort-item">ㄑ</div>
+  <div class="sort-item">酥</div>
+  <div class="sort-item">瓜</div>
+</div>
   },
   { type:"match",
     question:"請配對正確的大腿圍",
