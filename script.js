@@ -10,7 +10,7 @@ const quizData = [
     answer:"草"
   },
   { type:"choice",
-    question:"勞闆慈悲為懷，請問揪野女人進菇台詞是？",
+    question:"勞闆慈悲為懷，常在大群佈施，請問勞闆揪野女人進菇台詞是？",
     options:["兄弟大飯店","來來大飯店","晶華酒店","福華飯店"],
     answer:"來來大飯店"
   },
@@ -19,12 +19,10 @@ const quizData = [
     options:["予秧","多莉","估董","勞闆"],
     answer:"予秧"
   },
-  { <div class="sort-container" id="sortQ5">
-  <div class="sort-item">捏</div>
-  <div class="sort-item">ㄑ</div>
-  <div class="sort-item">酥</div>
-  <div class="sort-item">瓜</div>
-</div>
+  { type:"sort",
+    question:"請將本公司成員的現居住地，由南到北排列：",
+    items:["捏","ㄑ","酥","瓜"],
+    answer:["捏","ㄑ","酥","瓜"]
   },
   { type:"match",
     question:"請配對正確的大腿圍",
