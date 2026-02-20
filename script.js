@@ -1,108 +1,110 @@
+/* =========================
+   🎉 大年初五辦尾牙｜題庫
+   ========================= */
+
+const QUIZ_TITLE = "🎉 大年初五辦尾牙 🎉";
+
 const QUESTIONS = [
+
+  // 第一題｜多選（全部都要選）
   {
     id: 1,
     type: "multi",
-    score: 10,
     question: "本公司經營業務相當多元，請問下列何者為經營項目？",
     options: ["四星巨", "揪打美片", "卡菇", "跨月大元素"],
     answer: ["四星巨", "揪打美片", "卡菇", "跨月大元素"],
     shuffle: false
   },
 
+  // 第二題｜單選
   {
     id: 2,
     type: "single",
-    score: 10,
     question: "兵貴神速，請問下列哪一位進菇速度最快？",
     options: ["草", "毛", "KU", "老公"],
-    answer: "草"
+    answer: ["草"],
+    shuffle: true
   },
 
+  // 第三題｜單選
   {
     id: 3,
     type: "single",
-    score: 10,
     question: "勞闆慈悲為懷，常在大群佈施，請問勞闆揪野女人進菇的台詞是？",
     options: ["兄弟大飯店", "來來大飯店", "晶華酒店", "福華飯店"],
-    answer: "來來大飯店",
-    shuffle: false
+    answer: ["來來大飯店"],
+    shuffle: true
   },
 
+  // 第四題｜多選
   {
     id: 4,
     type: "multi",
-    score: 10,
     question: "請問下列哪位神秘人士尚未洩漏本名？",
     options: ["予秧", "多莉", "估董", "勞闆", "ㄑ", "地瓜", "ㄟ力酥"],
-    answer: ["予秧", "地瓜"]
+    answer: ["予秧", "地瓜"],
+    shuffle: true
   },
 
+  // 第五題｜單選
   {
     id: 5,
     type: "single",
-    score: 10,
     question: "公司群組吵得要命，請問下列哪個關鍵字出現最多次？",
     options: ["坐牢", "長照", "拉屎", "笑屎"],
-    answer: "笑屎"
+    answer: ["笑屎"],
+    shuffle: true
   },
 
+  // 第六題｜下拉式（排序概念）
   {
     id: 6,
-    type: "sort",
-    score: 10,
-    question: "請將本公司成員的現居住地，由南到北依序排列：",
-    items: ["捏", "ㄑ", "瓜", "酥"],
-    answer: ["捏", "ㄑ", "酥", "瓜"]
+    type: "select",
+    question: "請將本公司成員的現居住地，由南到北依序排列（請選第一位）",
+    options: ["捏", "ㄑ", "酥", "瓜"],
+    answer: ["捏"]
   },
 
+  // 第七題｜下拉式（配對）
   {
     id: 7,
-    type: "match",
-    score: 10,
-    question: "抱對蜜大腿就有菇可打，請選出正確的大腿圍？",
-    pairs: {
-      "捏": "21",
-      "ㄑ": "55",
-      "瓜": "16",
-      "酥": "15"
-    }
+    type: "select",
+    question: "抱對蜜大腿就有菇可打，請選出正確的大腿圍",
+    options: ["21", "55", "16", "15"],
+    answer: ["21"]
   },
 
+  // 第八題｜下拉式（配對）
   {
     id: 8,
-    type: "match",
-    score: 10,
-    question: "請配對地瓜動物園居民的正確數量？",
-    pairs: {
-      "貓": "1",
-      "天竺鼠": "3",
-      "烏龜": "3",
-      "魚": "一堆"
-    }
+    type: "select",
+    question: "請配對地瓜動物園居民的正確數量",
+    options: ["1", "3", "一堆"],
+    answer: ["一堆"]
   },
 
+  // 第九題｜下拉式（配對）
   {
     id: 9,
-    type: "match",
-    score: 10,
-    question: "請配對正確的老巢？",
-    pairs: {
-      "捏": "土耳其",
-      "ㄑ": "荷蘭",
-      "瓜": "北海道",
-      "酥": "墨西哥"
-    }
+    type: "select",
+    question: "請配對正確的老巢",
+    options: ["土耳其", "荷蘭", "北海道", "墨西哥"],
+    answer: ["土耳其"]
   },
 
+  // 第十題｜下拉式（排序概念）
   {
     id: 10,
-    type: "sort",
-    score: 10,
-    question: "請依大姨媽來的順序，從月初到月底排列：",
-    items: ["捏", "ㄑ", "瓜", "酥"],
-    answer: ["瓜", "捏", "酥", "ㄑ"]
+    type: "select",
+    question: "請依大姨媽來的順序從月初到月底（請選第一位）",
+    options: ["瓜", "捏", "酥", "ㄑ"],
+    answer: ["瓜"]
   }
+
 ];
+
+/* 每題配分（滿分 100） */
+const SCORE_PER_QUESTION = 10;
 
 let current=0;
 let userAnswers=new Array(quizData.length).fill(null);
