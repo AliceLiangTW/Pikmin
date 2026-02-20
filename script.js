@@ -109,8 +109,9 @@ function loadQuestion(){
   btn.disabled=true;
 
   if(q.type==="choice") renderChoice(q);
+  if(q.type==="multi") renderMulti(q);
   if(q.type==="sort") renderSort(q);
-  if(q.type==="match") renderMatch(q);
+  if(q.type==="match") renderMatch(q); 
 
   btn.innerText=current===quizData.length-1?"完成測驗":"下一題";
   updateNav();
@@ -126,6 +127,26 @@ function renderChoice(q){
       document.querySelectorAll(".option").forEach(o=>o.classList.remove("active"));
       div.classList.add("active");
       btn.disabled=false;
+    };
+    cEl.appendChild(div);
+  });
+}
+function renderMulti(q){
+  const opts = shuffle([...q.options]);
+  opts.forEach(opt=>{
+    const div=document.createElement("div");
+    div.className="option";
+    div.innerText=opt;
+    div.onclick=()=>{
+      if(!userAnswers[current]) userAnswers[current]=[];
+      if(userAnswers[current].includes(opt)){
+        userAnswers[current]=userAnswers[current].filter(x=>x!==opt);
+        div.classList.remove("active");
+      }else{
+        userAnswers[current].push(opt);
+        div.classList.add("active");
+      }
+      btn.disabled=userAnswers[current].length===0;
     };
     cEl.appendChild(div);
   });
@@ -187,6 +208,11 @@ function showResult(){
   let correct=0;
   quizData.forEach((q,i)=>{
     if(q.type==="choice" && userAnswers[i]===q.answer) correct++;
+    if(q.type==="multi"){
+    if(userAnswers[i] &&
+     JSON.stringify(userAnswers[i].sort())===
+     JSON.stringify(q.answer.sort())) correct++;
+}
     if(q.type==="sort" && JSON.stringify(userAnswers[i])===JSON.stringify(q.answer)) correct++;
     if(q.type==="match"){
       let ok=true;
