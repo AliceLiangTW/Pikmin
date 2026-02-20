@@ -129,3 +129,26 @@ select {
   border-radius:8px;
   padding:6px;
 }
+
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sort-item {
+  background: #f5f3ef;
+  border-radius: 18px;
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+  cursor: grab;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.sort-item.dragging {
+  opacity: .6;
+  transform: scale(1.05);
+  box-shadow: 0 10px 24px rgba(0,0,0,.15);
+}
