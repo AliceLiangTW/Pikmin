@@ -11,7 +11,7 @@ const quizData = [
     answer:"草"
   },
   { type:"choice",
-    question:"勞闆慈悲為懷，經常到在大群佈施，請問揪野女人進菇台詞是？",
+    question:"勞闆慈悲為懷，請問揪野女人進菇台詞是？",
     options:["兄弟大飯店","來來大飯店","晶華酒店","福華飯店"],
     answer:"來來大飯店"
   },
