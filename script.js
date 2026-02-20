@@ -37,7 +37,7 @@ const quizData = [
     pairs:{ "捏":"土耳其","ㄑ":"荷蘭","瓜":"北海道","酥":"墨西哥" }
   }
 ];
-
+「
 let current=0;
 let userAnswers=new Array(quizData.length).fill(null);
 
