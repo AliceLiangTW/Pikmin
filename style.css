@@ -113,3 +113,45 @@ h2 {
 #nextBtn.enabled {
   opacity: 1;
 }
+
+/* ===== App 動畫 ===== */
+
+.card {
+  animation: fadeSlideIn 0.35s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 回顧列表 */
+
+.review {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.review-item {
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background: #eef2ee;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-item.correct {
+  background: #dfeee6;
+}
+
+.review-item.wrong {
+  background: #f3e1e1;
+}
