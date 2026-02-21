@@ -5,78 +5,111 @@
 
 body {
   margin: 0;
-  background: #dfe5dc;
-  display: flex;
-  justify-content: center;
-  padding: 40px 16px;
+  background: #e6ece6;
 }
 
 .app {
-  width: 100%;
-  max-width: 420px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
 }
 
 .nav {
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
-.dot {
-  width: 28px;
-  height: 28px;
+.nav button {
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: #bfc9c0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
+  border: none;
+  background: #cfd8cf;
+  color: #445;
+  font-weight: bold;
 }
 
-.dot.active {
-  background: #6f8f7f;
+.nav button.active {
+  background: #7c9484;
   color: #fff;
 }
 
 .card {
-  background: #f7f7f5;
+  width: 100%;
+  max-width: 420px;
+  background: #fafaf7;
   border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
 }
 
-#progress {
+.progress {
   font-size: 14px;
   color: #666;
   margin-bottom: 8px;
 }
 
-#question {
+h2 {
   font-size: 18px;
   margin-bottom: 16px;
 }
 
+.options {
+  display: grid;
+  gap: 12px;
+}
+
 .option {
-  background: #e6ebe5;
-  border-radius: 12px;
   padding: 14px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.option.active {
-  background: #6f8f7f;
-  color: #fff;
-}
-
-button {
-  width: 100%;
-  border: none;
   border-radius: 14px;
-  padding: 14px;
-  background: #6f8f7f;
-  color: #fff;
+  background: #eef2ec;
+  border: 2px solid transparent;
   font-size: 16px;
-  margin-top: 16px;
+}
+
+.option.selected {
+  border-color: #7c9484;
+  background: #dfe8df;
+}
+
+.match-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.match-row label {
+  flex: 1;
+  font-size: 16px;
+}
+
+.match-row select {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+#nextBtn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-size: 16px;
+  background: #7c9484;
+  color: white;
+  opacity: .5;
+}
+
+#nextBtn.enabled {
+  opacity: 1;
 }
