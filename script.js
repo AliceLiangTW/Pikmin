@@ -1,4 +1,4 @@
-console.log("NEW SCRIPT LOADED");
+console.log("SCRIPT FIXED VERSION LOADED");
 
 const questions = [
   {
@@ -38,10 +38,10 @@ const questions = [
     answer: { 捏: "1", ㄑ: "2", 酥: "3", 瓜: "4" }
   },
   {
-    type: "single",
-    title: "正確的大腿圍？",
-    options: ["捏：21", "ㄑ：55", "瓜：16", "酥：15"],
-    answer: ["ㄑ：55"]
+    type: "match",
+    title: "抱對蜜大腿就有菇可打，請配對正確的大腿圍",
+    pairs: ["捏", "ㄑ", "瓜", "酥"],
+    answer: { 捏: "21", ㄑ: "55", 瓜: "16", 酥: "15" }
   },
   {
     type: "match",
@@ -57,7 +57,7 @@ const questions = [
   },
   {
     type: "match",
-    title: "大姨媽順序（1=最早）",
+    title: "請依大姨媽來的順序（1=最早）",
     pairs: ["捏", "ㄑ", "瓜", "酥"],
     answer: { 瓜: "1", 酥: "2", 捏: "3", ㄑ: "4" }
   }
@@ -84,14 +84,15 @@ function renderNav() {
 }
 
 function enableNext() {
-  nextBtn.classList.add("enabled");
   nextBtn.disabled = false;
+  nextBtn.classList.add("enabled");
 }
 
 function render() {
   renderNav();
   nextBtn.disabled = true;
   nextBtn.classList.remove("enabled");
+  nextBtn.textContent = current === questions.length - 1 ? "完成測驗" : "下一題";
 
   const q = questions[current];
   progressEl.textContent = `第 ${current + 1} / ${questions.length} 題`;
@@ -109,8 +110,9 @@ function render() {
 
       div.onclick = () => {
         if (q.type === "single") {
-          box.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
           answers[current] = [opt];
+          box.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+          div.classList.add("selected");
         } else {
           answers[current] ||= [];
           if (answers[current].includes(opt)) {
@@ -140,7 +142,7 @@ function render() {
       label.textContent = p;
 
       const select = document.createElement("select");
-      select.innerHTML = `<option value="">選擇</option>`;
+      select.innerHTML = `<option value="">請選擇</option>`;
       Object.values(q.answer).forEach(v => {
         const o = document.createElement("option");
         o.value = v;
@@ -150,7 +152,9 @@ function render() {
 
       select.onchange = () => {
         answers[current][p] = select.value;
-        if (Object.keys(answers[current]).length === q.pairs.length) enableNext();
+        if (Object.keys(answers[current]).length === q.pairs.length) {
+          enableNext();
+        }
       };
 
       row.append(label, select);
@@ -159,12 +163,40 @@ function render() {
   }
 }
 
+function calculateScore() {
+  let correct = 0;
+
+  questions.forEach((q, i) => {
+    const a = answers[i];
+    if (!a) return;
+
+    if (q.type !== "match") {
+      if (JSON.stringify(a.sort()) === JSON.stringify(q.answer.sort())) {
+        correct++;
+      }
+    } else {
+      let ok = true;
+      for (let k in q.answer) {
+        if (a[k] !== q.answer[k]) ok = false;
+      }
+      if (ok) correct++;
+    }
+  });
+
+  return Math.round((correct / questions.length) * 100);
+}
+
 nextBtn.onclick = () => {
   if (current < questions.length - 1) {
     current++;
     render();
   } else {
-    alert("🎉 測驗完成！");
+    const score = calculateScore();
+    document.querySelector(".card").innerHTML = `
+      <h2>🎉 測驗完成</h2>
+      <p style="font-size:20px;">你的分數：<strong>${score}</strong> / 100</p>
+      <button onclick="location.reload()">重新作答</button>
+    `;
   }
 };
 
