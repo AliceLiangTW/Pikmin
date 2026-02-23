@@ -230,6 +230,20 @@ nextBtn.onclick = () => {
       review += `<div>${ok ? "✅" : "❌"} 第 ${i + 1} 題</div>`;
     });
 
+let reviewHTML = `<div class="review">`;
+
+questions.forEach((q, i) => {
+  const r = getQuestionResult(q, answers[i], i);
+  reviewHTML += `
+    <div class="review-item ${r.correct ? "correct" : "wrong"}">
+      <span>第 ${i + 1} 題</span>
+      <span>${r.text}</span>
+    </div>
+  `;
+});
+
+reviewHTML += `</div>`;
+
 document.querySelector(".card").innerHTML = `
   <h2>🎉 測驗完成</h2>
 
@@ -237,9 +251,11 @@ document.querySelector(".card").innerHTML = `
     你的分數：<strong>${score}</strong> 分
   </p>
 
-  <p style="font-size:22px; margin-top:6px;">
+  <p style="font-size:22px; margin:6px 0 12px;">
     ${getRankText(score)}
   </p>
+
+  ${reviewHTML}
 
   <button onclick="shareResult(${score})">
     📸 截圖分享
