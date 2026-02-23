@@ -197,7 +197,29 @@ function calculateScore() {
 
   return score;
 }
+function getQuestionResult(q, userAnswer, index) {
+  // 1–5 題
+  if (index < 5) {
+    const ok =
+      userAnswer &&
+      JSON.stringify(userAnswer.sort()) === JSON.stringify(q.answer.sort());
+    return { correct: ok, score: ok ? 10 : 0 };
+  }
 
+  // 6–10 配對題
+  let correctCount = 0;
+  Object.keys(q.answer).forEach(k => {
+    if (userAnswer && userAnswer[k] === q.answer[k]) {
+      correctCount++;
+    }
+  });
+
+  return {
+    correct: correctCount === Object.keys(q.answer).length,
+    score: correctCount * 2.5,
+    detail: `${correctCount} / ${Object.keys(q.answer).length}`
+  };
+}
 nextBtn.onclick = () => {
   if (current < questions.length - 1) {
     current++;
