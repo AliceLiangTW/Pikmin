@@ -240,3 +240,26 @@ nextBtn.onclick = () => {
 };
 
 render();
+
+// 🎖 分數對應團主稱號
+function getRankText(score) {
+  if (score === 0) return "滾";
+  if (score < 60) return "🌟 1星團主";
+  if (score < 80) return "🌟🌟 2星團主";
+  if (score < 100) return "🌟🌟🌟 3星團主";
+  return "🌟🌟🌟🌟 4星團主";
+}
+
+// 📸 分享完成頁（安全版）
+function shareResult(score) {
+  const text = `🎉 大年初五辦尾牙\n我的分數：${score} 分\n稱號：${getRankText(score)}`;
+
+  if (navigator.share) {
+    navigator.share({
+      title: "尾牙測驗結果",
+      text
+    });
+  } else {
+    alert("此裝置不支援分享，請自行截圖 🙏");
+  }
+}
