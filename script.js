@@ -12,11 +12,19 @@ const questions = [
     answer: ["四星巨", "揪打美片", "卡菇", "跨月大元素"]
   },
   {
-    type: "single",
-    title: "兵貴神速，請問下列哪一位進菇速度最快？",
-    options: ["草", "毛", "KU", "老公"],
-    answer: ["草"]
-  },
+  type: "multi",
+  question: "下列敘述何者正確？（複選）",
+  options: [
+    "券咖共享，老公也共享。本公司被勞闆納入後宮的老公共有4位。",
+    "ㄑ4稱職ㄉ薪水小偷，遲到早退不加班。",
+    "地瓜重度沈迷皮克敏，蹲美巨衝4星、蹲熱門菇、跑現場活動、偷座標，樣樣精通。",
+    "客家人ㄟ力酥超擅長種花，天天都滿金。"
+  ],
+  answer: [
+    "券咖共享，老公也共享。本公司被勞闆納入後宮的老公共有4位。",
+    "地瓜重度沈迷皮克敏，蹲美巨衝4星、蹲熱門菇、跑現場活動、偷座標，樣樣精通。"
+  ]
+},
   {
     type: "single",
     title: "勞闆揪野女人進菇的台詞是？",
@@ -62,11 +70,15 @@ const questions = [
     answer: { 捏: "土耳其", ㄑ: "荷蘭", 瓜: "北海道", 酥: "墨西哥" }
   },
   {
-    type: "match",
-    title: "大姨媽來的順序（1=最早）",
-    pairs: ["捏", "ㄑ", "瓜", "酥"],
-    answer: { 瓜: "1", 酥: "2", 捏: "3", ㄑ: "4" }
+  type: "match",
+  question: "請配對正確的心頭好",
+  pairs: {
+    "勞闆": "眼屎",
+    "ㄑ": "丫鬟",
+    "瓜": "小粉",
+    "酥": "胖紫"
   }
+}
 ];
 
 let current = 0;
@@ -226,7 +238,26 @@ nextBtn.onclick = () => {
     render();
   } else {
     const score = calculateScore();
-    document.querySelector(".card").innerHTML = `
+    const score = calculateScore();
+
+let reviewHTML = `<div class="review">`;
+
+questions.forEach((q, i) => {
+  const r = getQuestionResult(q, answers[i], i);
+  reviewHTML += `
+    <div class="review-item ${r.correct ? "correct" : "wrong"}">
+      <span>第 ${i + 1} 題</span>
+      <span>
+        ${r.correct ? "✅ 正確" : "❌ 錯誤"}
+        ${r.detail ? `（${r.detail}）` : ""}
+      </span>
+    </div>
+  `;
+});
+
+reviewHTML += `</div>`;
+
+document.querySelector(".card").innerHTML = `
       <h2>🎉 測驗完成</h2>
       <p style="font-size:20px;">你的分數：<strong>${score}</strong> 分</p>
       <button onclick="location.reload()">重新作答</button>
