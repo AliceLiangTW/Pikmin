@@ -1,4 +1,4 @@
-console.log("SCRIPT FINAL 100 VERSION LOADED");
+console.log("SCRIPT FINAL SAFE VERSION LOADED");
 
 /* ========= 工具 ========= */
 function shuffle(arr) {
@@ -7,21 +7,19 @@ function shuffle(arr) {
 
 /* ========= 題庫 ========= */
 const questions = [
-  // 1
   {
     type: "multi",
     title: "本公司經營業務相當多元，請問下列何者為經營項目？（複選）",
     options: ["四星巨", "揪打美片", "卡菇", "跨月大元素"],
     answer: ["四星巨", "揪打美片", "卡菇", "跨月大元素"]
   },
-  // 2
   {
     type: "multi",
     title: "下列敘述何者正確？（複選）",
     options: [
       "券咖共享，老公也共享。本公司被勞闆納入後宮的老公共有4位。",
       "ㄑ4稱職ㄉ薪水小偷，遲到早退不加班。",
-      "地瓜超級認蒸玩皮克敏，蹲美巨衝4星、蹲熱門菇、跑現場活動、偷座標，樣樣精通。",
+      "地瓜超級認真蒸玩皮克敏，蹲美巨衝4星、蹲熱門菇、跑現場活動、偷座標，樣樣精通。",
       "客家人ㄟ力酥超擅長種花，天天都滿金。"
     ],
     answer: [
@@ -29,60 +27,51 @@ const questions = [
       "地瓜超級認真蒸玩皮克敏，蹲美巨衝4星、蹲熱門菇、跑現場活動、偷座標，樣樣精通。"
     ]
   },
-  // 3
   {
     type: "single",
-    title: "勞闆慈悲為懷，常在大群佈施，請問勞闆揪野女人進菇的台詞是？",
+    title: "勞闆揪野女人進菇的台詞是？",
     options: ["兄弟大飯店", "來來大飯店", "晶華酒店", "福華飯店"],
     answer: ["來來大飯店"]
   },
-  // 4
   {
     type: "multi",
-    title: "尼各位小心被肉搜！請問下列哪位神秘人士尚未洩漏本名？（複選）",
+    title: "下列哪位神秘人士尚未洩漏本名？（複選）",
     options: ["予秧", "多莉", "估董", "勞闆", "ㄑ", "地瓜", "阿皮", "ㄟ力酥"],
     answer: ["予秧", "地瓜"]
   },
-  // 5
   {
     type: "single",
-    title: "公司群組吵得要命，不讀不回小心999+，請問公司群組出現最多次的關鍵字是？",
+    title: "公司群組出現最多次的關鍵字是？",
     options: ["坐牢", "長照", "拉屎", "笑屎"],
     answer: ["笑屎"]
   },
-
-  // 6
   {
     type: "match",
-    title: "請將下列人士依現居住地由南到北排列（1 = 最南）",
+    title: "現居住地由南到北排列（1 = 最南）",
     pairs: ["捏", "ㄑ", "酥", "瓜"],
-    answer: { 捏: "1", ㄑ: "2", 瓜: "4", 酥: "3" }
+    answer: { 捏: "1", ㄑ: "2", 酥: "3", 瓜: "4" }
   },
-  // 7
   {
     type: "match",
-    title: "想要打菇，蜜大腿可要抱緊惹！請配對正確的大腿圍～",
+    title: "正確的大腿圍",
     pairs: ["捏", "ㄑ", "瓜", "酥"],
     answer: { 捏: "21", ㄑ: "55", 瓜: "16", 酥: "15" }
   },
-  // 8
   {
     type: "match",
-    title: "缺動物園皮9去地瓜家探測，請問地瓜動物園ㄉ居民數量？",
+    title: "地瓜動物園居民數量",
     pairs: ["貓", "天竺鼠", "烏龜", "魚"],
     answer: { 貓: "1", 天竺鼠: "3", 烏龜: "3", 魚: "一堆" }
   },
-  // 9
   {
     type: "match",
-    title: "狡兔三窟，飛久ㄌ默默9有老巢，以下請配對正確老巢～",
+    title: "正確老巢",
     pairs: ["捏", "ㄑ", "瓜", "酥"],
     answer: { 捏: "土耳其", ㄑ: "荷蘭", 瓜: "北海道", 酥: "墨西哥" }
   },
-  // 10
   {
     type: "match",
-    title: "可惡皮克敏讀心遊戲，越喜歡越不給你，以下請配對正確的心頭好",
+    title: "正確的心頭好",
     pairs: ["勞闆", "ㄑ", "瓜", "酥"],
     answer: { 勞闆: "眼屎", ㄑ: "丫鬟", 瓜: "小粉", 酥: "胖紫" }
   }
@@ -123,7 +112,6 @@ function render() {
   qEl.textContent = q.title;
   cEl.innerHTML = "";
 
-  /* 單選 / 多選 */
   if (q.type === "single" || q.type === "multi") {
     const box = document.createElement("div");
     box.className = "options";
@@ -157,7 +145,6 @@ function render() {
     cEl.appendChild(box);
   }
 
-  /* 配對題 */
   if (q.type === "match") {
     answers[current] ||= {};
     const opts = shuffle(Object.values(q.answer));
@@ -194,7 +181,6 @@ function render() {
 /* ========= 計分 ========= */
 function calculateScore() {
   let score = 0;
-
   questions.forEach((q, i) => {
     const a = answers[i];
     if (!a) return;
@@ -209,11 +195,10 @@ function calculateScore() {
       });
     }
   });
-
   return score;
 }
 
-/* ========= 下一題 / 完成 ========= */
+/* ========= 完成頁 ========= */
 nextBtn.onclick = () => {
   if (current < questions.length - 1) {
     current++;
@@ -221,56 +206,35 @@ nextBtn.onclick = () => {
   } else {
     const score = calculateScore();
 
-    let review = "";
+    let reviewHTML = `<div class="review">`;
     questions.forEach((q, i) => {
-      const ok =
-        i < 5
-          ? JSON.stringify([...answers[i]].sort()) === JSON.stringify([...q.answer].sort())
-          : Object.keys(q.answer).every(k => answers[i][k] === q.answer[k]);
-      review += `<div>${ok ? "✅" : "❌"} 第 ${i + 1} 題</div>`;
+      if (i < 5) {
+        const ok = JSON.stringify([...answers[i]].sort()) === JSON.stringify([...q.answer].sort());
+        reviewHTML += `<div class="review-item">${ok ? "✅" : "❌"} 第 ${i + 1} 題</div>`;
+      } else {
+        let correct = 0;
+        Object.keys(q.answer).forEach(k => {
+          if (answers[i][k] === q.answer[k]) correct++;
+        });
+        reviewHTML += `<div class="review-item">📌 第 ${i + 1} 題：${correct} / ${Object.keys(q.answer).length}</div>`;
+      }
     });
+    reviewHTML += `</div>`;
 
-let reviewHTML = `<div class="review">`;
-
-questions.forEach((q, i) => {
-  const r = getQuestionResult(q, answers[i], i);
-  reviewHTML += `
-    <div class="review-item ${r.correct ? "correct" : "wrong"}">
-      <span>第 ${i + 1} 題</span>
-      <span>${r.text}</span>
-    </div>
-  `;
-});
-
-reviewHTML += `</div>`;
-
-document.querySelector(".card").innerHTML = `
-  <h2>🎉 測驗完成</h2>
-
-  <p style="font-size:18px;">
-    你的分數：<strong>${score}</strong> 分
-  </p>
-
-  <p style="font-size:22px; margin:6px 0 12px;">
-    ${getRankText(score)}
-  </p>
-
-  ${reviewHTML}
-
-  <button onclick="shareResult(${score})">
-    📸 截圖分享
-  </button>
-
-  <button onclick="location.reload()">
-    🔄 重新作答
-  </button>
-`;
+    document.querySelector(".card").innerHTML = `
+      <h2>🎉 測驗完成</h2>
+      <p>你的分數：<strong>${score}</strong> 分</p>
+      <p style="font-size:22px;">${getRankText(score)}</p>
+      ${reviewHTML}
+      <button onclick="shareResult(${score})">📸 截圖分享</button>
+      <button onclick="location.reload()">🔄 重新作答</button>
+    `;
   }
 };
 
 render();
 
-// 🎖 分數對應團主稱號
+/* ========= 輔助 ========= */
 function getRankText(score) {
   if (score === 0) return "滾";
   if (score < 60) return "🌟 1星團主";
@@ -279,15 +243,10 @@ function getRankText(score) {
   return "🌟🌟🌟🌟 4星團主";
 }
 
-// 📸 分享完成頁（安全版）
 function shareResult(score) {
   const text = `🎉 大年初五辦尾牙\n我的分數：${score} 分\n稱號：${getRankText(score)}`;
-
   if (navigator.share) {
-    navigator.share({
-      title: "尾牙測驗結果",
-      text
-    });
+    navigator.share({ title: "尾牙測驗結果", text });
   } else {
     alert("此裝置不支援分享，請自行截圖 🙏");
   }
