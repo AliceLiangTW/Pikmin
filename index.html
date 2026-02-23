@@ -3,23 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎉 尾牙辦在開工日 🎉</title>
+  <title>🎉 大年初五辦尾牙</title>
+
+  <!-- 你的既有 style.css -->
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* 🔒 保險用：就算 style.css 沒載到也不會全白 */
+    body {
+      margin: 0;
+      background: #eef1ec;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
+    }
+    .app {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px 20px 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      animation: fadeIn .35s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #nextBtn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      font-size: 17px;
+      border-radius: 14px;
+      border: none;
+      background: #8fa89a;
+      color: #fff;
+    }
+    #nextBtn:disabled {
+      background: #cfd8d1;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="app">
-  <div id="nav" class="nav"></div>
+  <!-- ✅ script.js 一定會抓到的最外層 -->
+  <div class="app">
 
-  <div class="card">
-    <div id="progress" class="progress"></div>
-    <h2 id="question"></h2>
-    <div id="content"></div>
+    <!-- ✅ 題號導覽列（script.js 會動態塞） -->
+    <div class="nav" id="nav"></div>
 
-    <button id="nextBtn" disabled>下一題</button>
+    <!-- ✅ 主卡片（題目 / 完成頁都在這裡） -->
+    <div class="card">
+
+      <!-- 進度 -->
+      <div id="progress"></div>
+
+      <!-- 題目 -->
+      <h2 id="question"></h2>
+
+      <!-- 題目內容（選項 / 下拉配對） -->
+      <div id="content"></div>
+
+      <!-- 下一題 / 完成測驗 -->
+      <button id="nextBtn" disabled>下一題</button>
+
+    </div>
   </div>
-</div>
 
-<script src="script.js"></script>
+  <!-- ⚠️ script.js 必須放在 body 最底 -->
+  <script src="script.js"></script>
 </body>
 </html>
