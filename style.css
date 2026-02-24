@@ -86,3 +86,22 @@ body {
   color: #fff;
   font-size: 18px;
 }
+/* ✅ 配對題下拉式選單加寬（安全版） */
+.match-row {
+  gap: 12px;
+}
+
+.match-row span {
+  flex: 0 0 72px; /* 左邊文字固定寬度 */
+}
+
+.match-row select {
+  flex: 1;              /* 右邊吃滿剩餘空間 */
+  width: 100%;
+  max-width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  background: #edf2ed;
+}
