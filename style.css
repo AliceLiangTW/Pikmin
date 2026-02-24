@@ -105,3 +105,81 @@ body {
   border: none;
   background: #edf2ed;
 }
+/* ===============================
+   ✅ 測驗完成頁（結果頁）美化
+   =============================== */
+
+#result {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px 22px;
+  max-width: 420px;
+  margin: 24px auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* 標題 */
+#result h2 {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+/* 分數文字 */
+#result p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+/* 星等 */
+#result .stars {
+  font-size: 22px;
+  margin: 10px 0 16px;
+}
+
+/* 清單 */
+#result ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+/* 每一題結果 */
+#result li {
+  font-size: 16px;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 底部按鈕區 */
+#result .actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* 按鈕統一風格 */
+#result button {
+  flex: 1;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+/* 截圖分享 */
+#result button:first-child {
+  background: #e6efe6;
+  color: #2f5d3f;
+}
+
+/* 重新作答 */
+#result button:last-child {
+  background: #4a7f63;
+  color: #ffffff;
+}
