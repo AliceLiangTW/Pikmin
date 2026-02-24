@@ -222,12 +222,21 @@ nextBtn.onclick = () => {
     reviewHTML += `</div>`;
 
     document.querySelector(".card").innerHTML = `
-      <h2>🎉 測驗完成</h2>
-      <p>你的分數：<strong>${score}</strong> 分</p>
-      <p style="font-size:22px;">${getRankText(score)}</p>
-      ${reviewHTML}
-      <button onclick="shareResult(${score})">📸 截圖分享</button>
-      <button onclick="location.reload()">🔄 重新作答</button>
+      <div class="result">
+        <h2>🎉 測驗完成</h2>
+
+        <div class="score">
+          <span>你的分數</span>
+          <strong>${score}</strong>
+        </div>
+
+        <div class="rank">${getRankText(score)}</div>
+
+        ${reviewHTML}
+
+        <button class="primary" onclick="shareResult(${score})">📸 截圖分享</button>
+        <button class="ghost" onclick="location.reload()">🔄 重新作答</button>
+      </div>
     `;
   }
 };
